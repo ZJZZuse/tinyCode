@@ -64,13 +64,20 @@ class GuessNumGame
 
   MAX_NUM = 100
 
-  NUM_RANGE = (0...MAX_NUM)
-
   START_GAME_S = 'Start new game,input your number :'
 
   BIGER_S = "too big!"
 
   LESSER_S = "too less!"
+
+  OUT_OF_RANGE = "Out of range! Goal Range is "
+
+  WIN = "Right! Good job!  your guess Count is "
+
+  RANGE_TIP = "range is "
+
+
+  @@bestGuessCount = 100
 
   def initialize
 
@@ -107,28 +114,33 @@ class GuessNumGame
   public
 
   #true is success
+
+
   def doGuess num
 
     @guessCount += 1
 
-    if !NUM_RANGE.include? num
-      puts "Out of range! Goal #{RANGE_S}"
+    if !(@min..@max).include? num
+      puts OUT_OF_RANGE+" #{@min}-#{@max}"
       return false
     end
 
-    if num == @guessCount
-      puts "Right! Good job!  your guess Count is #{@guessCount}"
+    if num == @goalNum
+
+      @@bestGuessCount = @guessCount if @guessCount < @@bestGuessCount
+
+      puts WIN+"#{@guessCount}" + ",best performance is #{@@bestGuessCount}"
       return true
-    elsif num > @guessCount
+    elsif num > @goalNum
 
       @max = num - 1
       puts BIGER_S
-      puts "range is #{@min}-#{@max}"
-    elsif num < @guessCount
+      puts RANGE_TIP+"#{@min}-#{@max}"
+    elsif num < @goalNum
 
       @min = num +1
       puts LESSER_S
-      puts "range is #{@min}-#{@max}"
+      puts RANGE_TIP+" #{@min}-#{@max}"
     end
 
     false
