@@ -1,60 +1,156 @@
-MaxGessNum = 100
+# MAX_NUM = 100
+#
+# def initGame
+#
+#   $max = MAX_NUM - 1
+#   $min = 0
+#
+# end
+#
+# def gainGoalNum
+#
+#   rand(MAX_NUM)
+#
+# end
+#
+# initGame
+#
+# rNum = gainGoalNum
+#
+# gessCount = 0
+#
+# while (true)
+#   i = gets
+#
+#   gessCount += 1
+#
+#   goalV = i.to_i
+#
+#   def putsRange
+#
+#     puts "range is #{$min}-#{$max}"
+#
+#   end
+#
+#   if (goalV > rNum)
+#     puts "too bigger "
+#
+#     $max = goalV
+#     putsRange
+#   else
+#
+#     if (goalV == rNum)
+#
+#       initGame
+#
+#       puts 'right!', 'good job!', "your gess Count is #{gessCount}\n\n", 'start another game:'
+#
+#       gessCount = 0
+#
+#       rNum = gainGoalNum
+#
+#     else
+#       puts "too less "
+#       $min = goalV
+#       putsRange
+#     end
+#
+#   end
+#
+# end
 
-def initGame
 
-  $max = MaxGessNum - 1
-  $min = 0
+class GuessNumGame
 
-end
+  MAX_NUM = 100
 
-def gainGoalNum
+  NUM_RANGE = (0...MAX_NUM)
 
-  rand(MaxGessNum)
+  START_GAME_S = 'Start new game,input your number :'
 
-end
+  BIGER_S = "too big!"
 
-initGame
+  LESSER_S = "too less!"
 
-rNum = gainGoalNum
+  def initialize
 
-gessCount = 0
-
-while(true)
-  i = gets
-
-  gessCount += 1
-
-  goalV = i.to_i
-  def putsRange
-
-    puts "range is #{$min}-#{$max}"
+    initGame
+    generateGoalNum
 
   end
 
-  if(goalV > rNum)
-    puts "too bigger "
 
-    $max = goalV
-    putsRange
-  else
+  def self.startNewGame
 
-    if (goalV == rNum)
+    game = GuessNumGame.new
 
-      initGame
+    puts START_GAME_S
 
-      puts 'right!','good job!',"your gess Count is #{gessCount}\n\n",'start another game:'
+    game
+  end
 
-      gessCount = 0
+  private
 
-      rNum = gainGoalNum
+  def initGame
+    @max = MAX_NUM - 1
+    @min = 0
 
-    else
-      puts "too less "
-      $min = goalV
-      putsRange
+    @guessCount = 0
+  end
+
+  def generateGoalNum
+
+    @goalNum = rand(MAX_NUM)
+
+  end
+
+  public
+
+  #true is success
+  def doGuess num
+
+    @guessCount += 1
+
+    if !NUM_RANGE.include? num
+      puts "Out of range! Goal #{RANGE_S}"
+      return false
     end
 
+    if num == @guessCount
+      puts "Right! Good job!  your guess Count is #{@guessCount}"
+      return true
+    elsif num > @guessCount
+
+      @max = num - 1
+      puts BIGER_S
+      puts "range is #{@min}-#{@max}"
+    elsif num < @guessCount
+
+      @min = num +1
+      puts LESSER_S
+      puts "range is #{@min}-#{@max}"
+    end
+
+    false
+  end
+end
+
+
+loop do
+
+  game = GuessNumGame.startNewGame
+
+  loop do
+
+    s = gets.to_i
+
+    line = s
+
+    break if !line or line =~ /^qQ/
+
+    break if game.doGuess s
+
+
   end
 
 end
-
