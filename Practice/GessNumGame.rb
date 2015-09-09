@@ -148,21 +148,21 @@ class GuessNumGame
 end
 
 
-loop do
-
-  game = GuessNumGame.startNewGame
-
-  loop do
-
-    s = gets.to_i
-
-    line = s
-
-    break if !line or line =~ /^qQ/
-
-    break if game.doGuess s
-
-
-  end
-
-end
+# loop do
+#
+#   game = GuessNumGame.startNewGame
+#
+#   loop do
+#
+#     s = gets.to_i
+#
+#     line = s
+#
+#     break if !line or line =~ /^qQ/
+#
+#     break if game.doGuess s
+#
+#
+#   end
+#
+# end
