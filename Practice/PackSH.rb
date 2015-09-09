@@ -2,10 +2,13 @@
 f
 产生随机数
 判定胜负
-输出信息
+输出信息,abc
 =end
 
 class PackSH
+
+
+  attr_reader :tip
 
   TIPS = {:draw => 'draw', :com => 'lose', :cus => 'win'}
 
@@ -14,6 +17,10 @@ class PackSH
   PACKSH_KEY = %i(p s h)
 
   @customerScore = 0
+
+
+  @tip = ''
+
 
   def initialize
     @customerScore = 0
@@ -39,7 +46,9 @@ class PackSH
         @customerScore += 1
     end
 
-    puts TIPS[winner], "your choice is #{PACKSH[action]},cpu choice is #{PACKSH[computerAction]}", "your score is #{@customerScore}"
+    @tip = TIPS[winner] + "\nyour choice is #{PACKSH[action]},cpu choice is #{PACKSH[computerAction]}" + "\nyour score is #{@customerScore}"
+
+    # puts TIPS[winner], "your choice is #{PACKSH[action]},cpu choice is #{PACKSH[computerAction]}", "your score is #{@customerScore}"
 
   end
 
