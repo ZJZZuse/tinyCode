@@ -1,0 +1,7 @@
+
+
+def isPerfectNum num
+
+
+
+end
