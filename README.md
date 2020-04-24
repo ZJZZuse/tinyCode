@@ -1,2 +1,2 @@
 # tinyCode
-some tiny code
+ruby demo，一些测试代码
